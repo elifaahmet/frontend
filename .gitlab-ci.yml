@@ -1,0 +1,531 @@
+image: node:14.17.0
+
+stages:
+  - Setup
+  - Test
+  - Build
+  - Deploy QA
+  - Deploy Prod
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^(release|feature|bug)/'
+
+include:
+  - project: 'tendmoney/gitlab-ci-templates'
+    ref: 'main'
+    file: '/javascript/install.gitlab-ci.yml'
+  - project: 'tendmoney/gitlab-ci-templates'
+    ref: 'main'
+    file: '/javascript/lint.gitlab-ci.yml'
+  - project: 'tendmoney/gitlab-ci-templates'
+    ref: 'main'
+    file: 'javascript/test.gitlab-ci.yml'
+  - project: 'tendmoney/gitlab-ci-templates'
+    ref: 'main'
+    file: '/webx/build-marketing.gitlab-ci.yml'
+  - project: 'tendmoney/gitlab-ci-templates'
+    ref: 'main'
+    file: '/aws/deploy-ecs.gitlab-ci.yml'
+  - project: 'tendmoney/gitlab-ci-templates'
+    ref: 'main'
+    file: '/aws/deploy-s3.gitlab-ci.yml'
+  - project: 'tendmoney/gitlab-ci-templates'
+    ref: 'main'
+    file: '/webx/build-the-green.gitlab-ci.yml'
+
+# Install Node Modules
+Install:
+  stage: Setup
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-marketing.*/'
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-the-green.*/'
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+    - when: never
+  variables:
+    DOCKER_DRIVER: overlay
+  extends: .install
+
+# Lint service
+# Variables
+# INSTALL_DIRECTORY: '.'
+# SERVICE_NAME: 'webx-marketing'
+#Lint:
+#  stage: Test
+#  extends: .lint
+#  allow_failure: true
+#  needs:
+#    - Install
+
+# Unit
+# Variables
+# TEST_DIRECTORY: 'coverage/apps/marketing'
+# INSTALL_DIRECTORY: '.'
+# SERVICE_NAME: 'webx-marketing'
+#Unit:
+#  stage: Test
+#  extends: .test
+#  allow_failure: true
+#  needs:
+#    - Install
+
+# WebX Properties
+.build_marketing_prod: &build_marketing_prod
+  stage: Build
+  extends: .build_marketing
+  artifacts:
+    paths:
+      - dist/apps/webx/marketing
+  needs:
+    - Install
+
+.build_the_green_prod: &build_the_green_prod
+  stage: Build
+  extends: .build_the_green
+  artifacts:
+    paths:
+      - dist/apps/webx/the-green
+  needs:
+    - Install
+
+Marketing US:
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-marketing.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+    - when: never
+  <<: *build_marketing_prod
+  variables:
+    BUILD_LOCALE: 'en-US'
+    DESTINATION: 'webx-qa-alb-916570234.us-east-1.elb.amazonaws.com'
+
+Marketing MX:
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-marketing.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+    - when: never
+  <<: *build_marketing_prod
+  variables:
+    BUILD_LOCALE: 'es-MX'
+    DESTINATION: 'webx-qa-alb-mx-916570234.us-east-1.elb.amazonaws.com'
+
+The Green US:
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-the-green.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+    - when: never
+  <<: *build_the_green_prod
+  variables:
+    BUILD_LOCALE: 'en-US'
+
+The Green MX:
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-the-green.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+    - when: never
+  <<: *build_the_green_prod
+  variables:
+    BUILD_LOCALE: 'es-MX'
+
+
+deploy_marketing_qa:
+  stage: Deploy QA
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-marketing.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+    - when: never
+  environment:
+   name: qa/us
+   url: https://webx.tend.ninja/
+  extends: .deploy-ecs
+  needs:
+    - Marketing US
+  dependencies:
+    - Marketing US
+
+deploy_marketing_mx_qa:
+  stage: Deploy QA
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-marketing.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+  environment:
+    name: qa/mx
+    url: https://webx-mx.tend.ninja
+  extends: .deploy-ecs
+  variables:
+    SERVICE_NAME: 'web-marketing-mx'
+    DOCKER_DIR: 'marketing'
+  dependencies:
+    - Marketing MX
+  needs:
+    - Marketing MX
+
+deploy_the_green_us_qa:
+  stage: Deploy QA
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-the-green.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+    - when: never
+  variables:
+    SERVICE_NAME: 'web-the-green'
+    DOCKER_DIR: 'the-green'
+  environment:
+    name: qa/us
+    url: https://webx-us.tend.ninja/the-green
+  extends: .deploy-ecs
+  needs:
+    - The Green US
+  dependencies:
+    - The Green US
+
+deploy_the_green_mx_qa:
+  stage: Deploy QA
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-the-green.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+    - when: never
+  variables:
+    SERVICE_NAME: 'web-the-green-mx'
+    DOCKER_DIR: 'the-green'
+  environment:
+    name: qa/mx
+    url: https://webx-mx.tend.ninja
+  extends: .deploy-ecs
+  dependencies:
+    - The Green MX
+  needs:
+    - The Green MX
+
+deploy_the_green_us:
+  stage: Deploy Prod
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-the-green.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-all.*/'
+      when: manual
+    - when: never
+  environment:
+    name: production/us
+    url: https://tend.money/the-green
+  extends: .deploy-ecs
+  variables:
+    SERVICE_NAME: 'web-the-green'
+    DOCKER_DIR: 'the-green'
+  dependencies:
+    - The Green US
+  needs:
+    - The Green US
+
+deploy_the_green_mx:
+  stage: Deploy Prod
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-the-green.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-all.*/'
+      when: manual
+    - when: never
+  environment:
+    name: production/mx
+    url: https://tend.mx/the-green
+  extends: .deploy-ecs
+  variables:
+    SERVICE_NAME: 'web-the-green-mx'
+    DOCKER_DIR: 'the-green'
+  dependencies:
+    - The Green MX
+  needs:
+    - The Green MX
+
+deploy_marketing_us:
+  stage: Deploy Prod
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-marketing.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+    - when: never
+  environment:
+    name: production/us
+    url: https://tend.money
+  extends: .deploy-ecs
+  variables:
+    SERVICE_NAME: 'web-marketing'
+  dependencies:
+    - Marketing US
+  needs:
+    - Marketing US
+
+deploy_marketing_mx:
+  stage: Deploy Prod
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/webx-marketing.*/'
+      when: manual
+    - if: '$CI_COMMIT_REF_NAME =~/^release\/webx-all.*/'
+      when: manual
+  environment:
+    name: production/mx
+    url: https://tend.mx
+  extends: .deploy-ecs
+  variables:
+    SERVICE_NAME: 'web-marketing-mx'
+  dependencies:
+    - Marketing MX
+  needs:
+    - Marketing MX
+
+# Shared Design UI Kit
+UI Kit:
+  variables:
+    INSTALL_DIRECTORY: '.'
+  stage: Build
+  rules:
+    - changes:
+        - libs/shared/design/ui-kit/**/*
+      when: manual
+    - when: never
+  script: yarn nx run shared-design-ui-kit:build-storybook
+  cache:
+    key: node_modules-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - $INSTALL_DIRECTORY/node_modules/
+    policy: pull
+  artifacts:
+    paths:
+      - dist/storybook/shared-design-ui-kit
+  needs:
+    - Install
+
+Product UI Kit:
+  variables:
+    INSTALL_DIRECTORY: '.'
+  stage: Build
+  rules:
+    - changes:
+        - libs/lego/product-ui-kit/**/*
+      when: manual
+    - when: never
+  script: yarn nx run lego-product-ui-kit:build-storybook
+  cache:
+    key: node_modules-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - $INSTALL_DIRECTORY/node_modules/
+    policy: pull
+  artifacts:
+    paths:
+      - dist/storybook/lego-product-ui-kit
+  needs:
+    - Install
+
+Marketing UI Kit:
+  variables:
+    INSTALL_DIRECTORY: '.'
+  stage: Build
+  rules:
+    - changes:
+        - libs/lego/marketing-ui-kit/**/*
+      when: manual
+    - when: never
+  script: yarn nx run lego-marketing-ui-kit:build-storybook
+  cache:
+    key: node_modules-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - $INSTALL_DIRECTORY/node_modules/
+    policy: pull
+  artifacts:
+    paths:
+      - dist/storybook/lego-marketing-ui-kit
+  needs:
+    - Install
+
+.deploy_chromatic: &deploy_chromatic
+  variables:
+    CHROMATIC_TOKEN: $CHROMATIC_SHARED_DESIGN_UI_KIT_TOKEN
+    BUILD_DIR: dist/storybook/shared-design-ui-kit
+  script: yarn chromatic --project-token=$CHROMATIC_TOKEN --storybook-build-dir=$BUILD_DIR --exit-zero-on-changes
+
+# Deploy To Chromatic
+Chromatic UI Kit:
+  stage: Deploy QA
+  <<: *deploy_chromatic
+  variables:
+    CHROMATIC_TOKEN: $CHROMATIC_SHARED_DESIGN_UI_KIT_TOKEN
+    BUILD_DIR: dist/storybook/shared-design-ui-kit
+  environment:
+    name: chromatic/ui-kit
+    url: https://www.chromatic.com/builds?appId=617887402a5bee003a33c34f
+  rules:
+    - changes:
+        - libs/shared/design/ui-kit/**/*
+      when: manual
+    - when: never
+  cache:
+    key: node_modules-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - $INSTALL_DIRECTORY/node_modules/
+    policy: pull
+  dependencies:
+    - UI Kit
+  needs:
+    - UI Kit
+
+Chromatic Marketing UI Kit:
+  stage: Deploy QA
+  <<: *deploy_chromatic
+  variables:
+    CHROMATIC_TOKEN: $CHROMATIC_MARKETING_UI_KIT_TOKEN
+    BUILD_DIR: dist/storybook/lego-marketing-ui-kit
+  environment:
+    name: chromatic/marketing-ui-kit
+    url: https://www.chromatic.com/builds?appId=618a588292b83f003a37a1d5
+  rules:
+    - changes:
+        - libs/lego/marketing-ui-kit/**/*
+      when: manual
+    - when: never
+  cache:
+    key: node_modules-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - $INSTALL_DIRECTORY/node_modules/
+    policy: pull
+  dependencies:
+    - Marketing UI Kit
+  needs:
+    - Marketing UI Kit
+
+Chromatic Product UI Kit:
+  stage: Deploy QA
+  <<: *deploy_chromatic
+  variables:
+    CHROMATIC_TOKEN: $CHROMATIC_PRODUCT_UI_KIT_TOKEN
+    BUILD_DIR: dist/storybook/lego-product-ui-kit
+  environment:
+    name: chromatic/product-ui-kit
+    url: https://www.chromatic.com/builds?appId=617886e01b8e23003a91b67e
+  rules:
+    - changes:
+        - libs/lego/product-ui-kit/**/*
+      when: manual
+    - when: never
+  cache:
+    key: node_modules-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - $INSTALL_DIRECTORY/node_modules/
+    policy: pull
+  dependencies:
+    - Product UI Kit
+  needs:
+    - Product UI Kit
+
+
+# Build and Deploy Micro App - QA
+Build and Deploy Micro App - QA:
+  environment:
+    name: qa
+
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/apps\/qa\/.*/'
+      changes:
+        - apps/frontend/**/*
+      when: on_success
+    - when: never
+
+  variables:
+    BUCKET_NAME: 'tend-frontend-artifacts'
+    INSTALL_DIRECTORY: '.'
+    COMMAND: 'build'
+    ARGS: ''
+
+  before_script:
+    - export APP_PROJECT=$(sed -nr 's/^(release\/).*\/(.*)/\2/p' <<< $CI_COMMIT_REF_NAME)
+    - export APP_NAME=$(sed -nr 's/^frontend\-([a-z]+[1-9]*)/\1/p' <<< $APP_PROJECT)
+    - export SOURCE_DIRECTORY=./dist/apps/frontend/$APP_NAME
+    - export DESTINATION_PATH=frontend/$APP_NAME/public
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+
+  image: registry.gitlab.com/tendmoney/docker/ci/dind-aws
+  services:
+    - docker:dind
+
+  cache:
+    key: node_modules-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - $INSTALL_DIRECTORY/node_modules/
+    policy: pull
+
+  script:
+    - yarn
+    - yarn nx run ${APP_PROJECT}:${COMMAND} ${ARGS}
+    - aws s3 sync ${SOURCE_DIRECTORY} s3://${BUCKET_NAME}/${DESTINATION_PATH} --delete
+
+  stage: Build
+
+  needs:
+    - Install
+  dependencies:
+    - Install
+
+
+# Build and Deploy Micro App
+Build and Deploy Micro App - PROD:
+  environment:
+    name: production/apps
+
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^release\/apps\/prod\/.*/'
+      changes:
+        - apps/frontend/**/*
+      when: on_success
+    - when: never
+
+  variables:
+    BUCKET_NAME: 'tend-mf-artifacts'
+    INSTALL_DIRECTORY: '.'
+    COMMAND: 'build'
+    ARGS: ''
+
+  before_script:
+    - export APP_PROJECT=$(sed -nr 's/^(release\/).*\/(.*)/\2/p' <<< $CI_COMMIT_REF_NAME)
+    - export APP_NAME=$(sed -nr 's/^frontend\-([a-z]+[1-9]*)/\1/p' <<< $APP_PROJECT)
+    - export SOURCE_DIRECTORY=./dist/apps/frontend/$APP_NAME
+    - export DESTINATION_PATH=frontend/$APP_NAME/public
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+
+  image: registry.gitlab.com/tendmoney/docker/ci/dind-aws
+  services:
+    - docker:dind
+
+  cache:
+    key: node_modules-cache-$CI_COMMIT_REF_SLUG
+    paths:
+      - $INSTALL_DIRECTORY/node_modules/
+    policy: pull
+
+  script:
+    - yarn
+    - yarn nx run ${APP_PROJECT}:${COMMAND} ${ARGS}
+    - aws s3 sync ${SOURCE_DIRECTORY} s3://${BUCKET_NAME}/${DESTINATION_PATH} --delete
+
+  stage: Build
+
+  needs:
+    - Install
+  dependencies:
+    - Install
+

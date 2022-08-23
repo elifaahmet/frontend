@@ -1,0 +1,34 @@
+{
+  "transactions": [
+    {
+      "data": {
+        "nickname": "Ken Jeong" ,
+        "memberId": "894320c7a334ec28c229a255f46d8342" ,
+        "amount": -350 ,
+        "currency": "usd" ,
+        "note": "Note" ,
+        "transactionDate": "08/24/2021"
+      }
+    } ,
+    {
+      "data": {
+        "nickname": "El Chapo" ,
+        "memberId": "65cb9f849b0669c8c5325e0703418c82" ,
+        "amount": -105.5 ,
+        "currency": "mxn" ,
+        "note": "Note" ,
+        "transactionDate": "07/16/2021"
+      }
+    } ,
+    {
+      "data": {
+        "nickname": "RussellPeters" ,
+        "memberId": "d73b638d3927162658f6a7d2a7c47337" ,
+        "amount": -34.5 ,
+        "currency": "usd" ,
+        "note": "Note" ,
+        "transactionDate": "07/04/2021"
+      }
+    }
+  ]
+}

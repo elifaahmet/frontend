@@ -1,0 +1,42 @@
+query getCoupons($date: String) {
+    getCoupons(date: $date) {
+        rmnId
+        couponDate
+        applicableOn
+        category
+        categoryRank
+        code
+        description
+        eventRank
+        eventType
+        exclusions
+        logourl
+        merchantUrl
+        merchantRank
+        monetized
+        popularRank
+        source
+        startDate
+        store
+        terms
+        title
+        url
+        validTill
+        validity
+        validationTimestamp
+        rmnUrl
+        rmnMobileClicks
+        rmnDesktopClicks
+        rmnAppClicks
+        merchantCategory
+        tag
+        logoBackgroundColor
+    }
+}
+
+ mutation setCouponRetrievedIterable ($memberId: String!) {
+      setCouponRetrievedIterable (memberId: $memberId) {
+         ok
+         message
+     }
+ }

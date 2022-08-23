@@ -1,0 +1,55 @@
+query customer($memberId: ID!) {
+  customer(memberId: $memberId) {
+    customerId
+    firstName
+    middleName
+    lastName
+    email
+    dob
+    addresses {
+      addressType
+      addressLine
+      city
+      state
+      postalCode
+      country
+    }
+    phones {
+      phoneType
+      number
+    }
+  }
+}
+
+mutation updatePersonalDetails($memberId: String!, $bankIdentifier: String!, $customerFields: CustomerFieldsInputType, $otpCode: String!) {
+  updatePersonalDetails( memberId: $memberId, bankIdentifier: $bankIdentifier, customerFields: $customerFields, otpCode: $otpCode) {
+    updatedFields {
+      firstName
+      middleName
+      lastName
+      email
+      addresses {
+        addressType
+        addressLine
+        city
+        state
+        postalCode
+        country
+      }
+      phones {
+        phoneType
+        number
+      }
+    }
+  }
+}
+
+query getAddressAutoComplete($lookup: String!) {
+  getAddressAutoComplete(lookup: $lookup) {
+    streetLine
+    secondary
+    city
+    state
+    zipcode
+  }
+}

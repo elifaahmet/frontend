@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "data": {
+        "memberId": "665e22e6b776c0e57a18ab6371ae78da" ,
+        "nickname": "Larry David" ,
+        "tendId": "ldavid" ,
+        "country": "us"
+      }
+    } ,
+    {
+      "data": {
+        "memberId": "08b39daff7d0deb1b69773fdb034336f" ,
+        "nickname": "Dave Chappelle" ,
+        "tendId": "dchapelle" ,
+        "country": "us"
+      }
+    } ,
+    {
+      "data": {
+        "memberId": "cc676933474870c77153564dc9e7cddb" ,
+        "nickname": "David Spade" ,
+        "tendId": "abby89" ,
+        "country": "mx"
+      }
+    }
+  ]
+}

@@ -1,0 +1,573 @@
+query transferHistories($success: Boolean, $passed: Boolean, $folderName: String, $limit: Int) {
+  transferHistories(success: $success, passed: $passed, folderName: $folderName, limit: $limit) {
+    id
+    filename
+    folderName
+    success
+    passed
+    fileCreatedDate
+    createdDate
+    updatedDate
+  }
+}
+
+query transferHistory($id: ID!) {
+  transferHistory(id: $id) {
+    id
+    filename
+    success
+    passed
+    folderName
+    fileCreatedDate
+    createdDate
+    updatedDate
+  }
+}
+
+query eventNotificationHeaders($fileName: String, $status: String, $limit: Int){
+  eventNotificationHeaders(fileName: $fileName, status: $status, limit: $limit) {
+    id
+    fileName
+    recordCount
+    fileCreatedDate
+    fileEffectiveDate
+    status
+  }
+}
+
+query eventNotificationHeader($id: ID!){
+  eventNotificationHeader(id: $id) {
+    id
+    fileName
+    recordCount
+    fileCreatedDate
+    fileEffectiveDate
+    status
+  }
+}
+
+query eventNotificationRows($limit: Int) {
+  eventNotificationRows(limit: $limit) {
+    id
+    headerId
+    customerId
+    customerTag
+    accountId
+    accountTag
+    externalAccountId
+    externalAccountTag
+    transactionId
+    transactionTag
+    description
+    eventTypeId
+    transactionTypeCode
+    transactionSettledDate
+    transactionAvailableDate
+    userEventId
+    masterId
+    transactionAmount
+    transactionCreatedDate
+    transactionSubTypeCode
+    fromAccountId
+    fromAvailableBalance
+    fromAccountBalance
+    fromPendingBalance
+    toAccountId
+    toAvailableBalance
+    toAccountBalance
+    toPendingBalance
+    modifiedById
+    eventDate
+    isAdminUser
+  }
+}
+
+query eventNotificationRowsByEvent($events: [Int], $status: String) {
+  eventNotificationRowsByEvent(events: $events, status: $status) {
+    id
+    headerId
+    customerId
+    userEventId
+    status
+  }
+}
+
+query eventNotificationRow($id: ID!) {
+  eventNotificationRow(id: $id) {
+    id
+    headerId
+    customerId
+    customerTag
+    accountId
+    accountTag
+    externalAccountId
+    externalAccountTag
+    transactionId
+    transactionTag
+    description
+    eventTypeId
+    transactionTypeCode
+    transactionSettledDate
+    transactionAvailableDate
+    userEventId
+    masterId
+    transactionAmount
+    transactionCreatedDate
+    transactionSubTypeCode
+    fromAccountId
+    fromAvailableBalance
+    fromAccountBalance
+    fromPendingBalance
+    toAccountId
+    toAvailableBalance
+    toAccountBalance
+    toPendingBalance
+    modifiedById
+    eventDate
+    isAdminUser
+  }
+}
+
+mutation createTransferHistory($filename: String!, $folderName: String!, $success: Boolean!, $passed: Boolean!, $fileCreationDate: Int!) {
+  createTransferHistory(filename: $filename, folderName: $folderName, success: $success, passed: $passed, fileCreationDate: $fileCreationDate) {
+    ok
+    transferHistory {
+      id
+      filename
+      folderName
+      success
+      passed
+      fileCreatedDate
+      createdDate
+      updatedDate
+    }
+  }
+}
+
+mutation bulkCreateTransferHistory($transferHistories: [TransferHistoryInputType]) {
+  bulkCreateTransferHistory(transferHistories: $transferHistories) {
+    ok
+  }
+}
+
+mutation updateTransferHistory($id: ID!, $filename: String, $folderName: String, $success: Boolean, $passed: Boolean) {
+  updateTransferHistory(id: $id, filename: $filename, folderName: $folderName, success: $success, passed: $passed) {
+    ok
+    transferHistory {
+      filename
+      success
+      folderName
+      passed
+      fileCreatedDate
+      createdDate
+      updatedDate
+    }
+  }
+}
+
+mutation deleteTransferHistory($id: ID!) {
+  deleteTransferHistory(id: $id) {
+    ok
+    transferHistory {
+      filename
+      folderName
+      success
+      passed
+      fileCreatedDate
+      createdDate
+      updatedDate
+    }
+  }
+}
+
+mutation createEventNotificationHeader(
+  $fileCreatedDate: DateTime,
+  $fileEffectiveDate: DateTime,
+  $fileName: String,
+  $recordCount: Int,
+  $status: String
+) {
+  createEventNotificationHeader(
+    fileCreatedDate: $fileCreatedDate,
+    fileEffectiveDate: $fileEffectiveDate,
+    fileName: $fileName,
+    recordCount: $recordCount,
+    status: $status,
+  ) {
+    ok
+    eventNotificationHeader {
+      fileCreatedDate
+			fileEffectiveDate
+			fileName
+			recordCount
+			status
+    }
+  }
+}
+
+mutation updateEventNotificationHeader(
+  $id: ID!,
+  $fileCreatedDate: DateTime,
+  $fileEffectiveDate: DateTime,
+  $fileName: String,
+  $recordCount: Int,
+  $status: String
+) {
+  updateEventNotificationHeader(
+    id: $id,
+    fileCreatedDate: $fileCreatedDate,
+    fileEffectiveDate: $fileEffectiveDate,
+    fileName: $fileName,
+    recordCount: $recordCount,
+    status: $status,
+  ) {
+    ok
+    eventNotificationHeader {
+      fileCreatedDate
+			fileEffectiveDate
+			fileName
+			recordCount
+			status
+    }
+  }
+}
+
+mutation deleteEventNotificationHeader(
+  $id: ID!,
+) {
+  deleteEventNotificationHeader(
+    id: $id,
+  ) {
+    ok
+    eventNotificationHeader {
+      fileCreatedDate
+			fileEffectiveDate
+			fileName
+			recordCount
+			status
+    }
+  }
+}
+
+mutation createEventNotificationRow($eventNotificationRow: EventNotificationRowInputType) {
+  createEventNotificationRow(eventNotificationRow: $eventNotificationRow) {
+    ok
+    eventNotificationRow {
+      id
+      headerId
+      customerId
+      customerTag
+      accountId
+      accountTag
+      externalAccountId
+      externalAccountTag
+      transactionId
+      transactionTag
+      description
+      eventTypeId
+      transactionTypeCode
+      transactionSettledDate
+      transactionAvailableDate
+      userEventId
+      masterId
+      transactionAmount
+      transactionCreatedDate
+      transactionSubTypeCode
+      fromAccountId
+      fromAvailableBalance
+      fromAccountBalance
+      fromPendingBalance
+      toAccountId
+      toAvailableBalance
+      toAccountBalance
+      toPendingBalance
+      modifiedById
+      eventDate
+      isAdminUser
+    }
+  }
+}
+
+mutation bulkCreateEventNotificationRow($eventNotificationRows: [EventNotificationRowInputType]) {
+  bulkCreateEventNotificationRow(eventNotificationRows: $eventNotificationRows) {
+    ok
+  }
+}
+
+mutation updateEventNotificationRow($id: ID!, $eventNotificationRow: EventNotificationRowInputType) {
+  updateEventNotificationRow(id: $id, eventNotificationRow: $eventNotificationRow) {
+    ok
+    eventNotificationRow {
+      id
+      headerId
+      customerId
+      customerTag
+      accountId
+      accountTag
+      externalAccountId
+      externalAccountTag
+      transactionId
+      transactionTag
+      description
+      eventTypeId
+      transactionTypeCode
+      transactionSettledDate
+      transactionAvailableDate
+      userEventId
+      masterId
+      transactionAmount
+      transactionCreatedDate
+      transactionSubTypeCode
+      fromAccountId
+      fromAvailableBalance
+      fromAccountBalance
+      fromPendingBalance
+      toAccountId
+      toAvailableBalance
+      toAccountBalance
+      toPendingBalance
+      modifiedById
+      eventDate
+      isAdminUser
+    }
+  }
+}
+
+mutation deleteEventNotificationRow($id: ID!) {
+  updateEventNotificationRow(id: $id) {
+    ok
+    eventNotificationRow {
+      id
+      headerId
+      customerId
+      customerTag
+      accountId
+      accountTag
+      externalAccountId
+      externalAccountTag
+      transactionId
+      transactionTag
+      description
+      eventTypeId
+      transactionTypeCode
+      transactionSettledDate
+      transactionAvailableDate
+      userEventId
+      masterId
+      transactionAmount
+      transactionCreatedDate
+      transactionSubTypeCode
+      fromAccountId
+      fromAvailableBalance
+      fromAccountBalance
+      fromPendingBalance
+      toAccountId
+      toAvailableBalance
+      toAccountBalance
+      toPendingBalance
+      modifiedById
+      eventDate
+      isAdminUser
+    }
+  }
+}
+
+
+mutation createCardNotificationRow($cardNotificationRow: CardNotificationRowInputType) {
+  createCardNotificationRow(cardNotificationRow: $cardNotificationRow) {
+    ok
+    cardNotificationRow {
+      id
+      headerId
+      userEventId
+      customerId
+      cardId
+      transactionId
+      authorizationTransactionId
+      requestTypeCode
+      reserved
+      merchantCategoryCode
+      merchantGroupTypeCode
+      cashbackAmount
+      surchargeAmount
+      cashDepositAmount
+      checkDepositAmount
+      terminalId
+      merchantId
+      merchantLocation
+      merchantCity
+      merchantStateCode
+      merchantZipCode
+      merchantCountryCode
+      panEntryModeTypeCode
+      pinEntryModeTypeCode
+      cardHolderPresenceTypeCode
+      cardPresenceTypeCode
+      terminalUnattendedTypeCode
+      terminalPremisesTypeCode
+      customerTag
+      cardTag
+      amount
+      availableDate
+      createdDate
+      customField1
+      description
+      denialReason
+      feeCode
+      feeDescription
+      friendlyDescription
+      fromAccountAmount
+      fromAccountId
+      fromAccountNumberMasked
+      fromAvailableAmount
+      fromCategory
+      fromCreatedDate
+      fromCustomField1
+      fromCustomField2
+      fromCustomField3
+      fromCustomField4
+      fromCustomField5
+      fromLegalName1
+      fromLegalName2
+      fromName
+      fromPendingAmount
+      fromPrimaryCustomerId
+      fromSubCategory
+      fromTag
+      institutionName
+      masterId
+      modifiedById
+      payloadTypeId
+      settledDate
+      subType
+      subTypeCode
+      tag
+      toAccountAmount
+      toAccountId
+      toAccountNumberMasked
+      toAvailableAmount
+      toCategory
+      toCreatedDate
+      toCustomField1
+      toCustomField2
+      toCustomField3
+      toCustomField4
+      toCustomField5
+      toLegalName1
+      toLegalName2
+      toName
+      toPendingAmount
+      toPrimaryCustomerId
+      toSubCategory
+      toTag
+      type
+      typeCode
+      eventTypeId
+      networkProviderTypeId
+      status
+    }
+  }
+}
+
+mutation bulkCreateCardNotificationRow($cardNotificationRows: [CardNotificationRowInputType]) {
+  bulkCreateCardNotificationRow(cardNotificationRows: $cardNotificationRows) {
+    ok
+  }
+}
+
+
+mutation updateCardNotificationRow($id: ID!, $cardNotificationRow: CardNotificationRowInputType) {
+  updateCardNotificationRow(id: $id, cardNotificationRow: $cardNotificationRow) {
+    ok
+    cardNotificationRow {
+      id
+      headerId
+      userEventId
+      customerId
+      cardId
+      transactionId
+      authorizationTransactionId
+      requestTypeCode
+      reserved
+      merchantCategoryCode
+      merchantGroupTypeCode
+      cashbackAmount
+      surchargeAmount
+      cashDepositAmount
+      checkDepositAmount
+      terminalId
+      merchantId
+      merchantLocation
+      merchantCity
+      merchantStateCode
+      merchantZipCode
+      merchantCountryCode
+      panEntryModeTypeCode
+      pinEntryModeTypeCode
+      cardHolderPresenceTypeCode
+      cardPresenceTypeCode
+      terminalUnattendedTypeCode
+      terminalPremisesTypeCode
+      customerTag
+      cardTag
+      amount
+      availableDate
+      createdDate
+      customField1
+      description
+      denialReason
+      feeCode
+      feeDescription
+      friendlyDescription
+      fromAccountAmount
+      fromAccountId
+      fromAccountNumberMasked
+      fromAvailableAmount
+      fromCategory
+      fromCreatedDate
+      fromCustomField1
+      fromCustomField2
+      fromCustomField3
+      fromCustomField4
+      fromCustomField5
+      fromLegalName1
+      fromLegalName2
+      fromName
+      fromPendingAmount
+      fromPrimaryCustomerId
+      fromSubCategory
+      fromTag
+      institutionName
+      masterId
+      modifiedById
+      payloadTypeId
+      settledDate
+      subType
+      subTypeCode
+      tag
+      toAccountAmount
+      toAccountId
+      toAccountNumberMasked
+      toAvailableAmount
+      toCategory
+      toCreatedDate
+      toCustomField1
+      toCustomField2
+      toCustomField3
+      toCustomField4
+      toCustomField5
+      toLegalName1
+      toLegalName2
+      toName
+      toPendingAmount
+      toPrimaryCustomerId
+      toSubCategory
+      toTag
+      type
+      typeCode
+      eventTypeId
+      networkProviderTypeId
+      status
+    }
+  }
+}

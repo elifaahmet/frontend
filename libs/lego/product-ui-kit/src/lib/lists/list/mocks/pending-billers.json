@@ -1,0 +1,24 @@
+{
+  "transactions": [
+    {
+      "data": {
+        "nickname": "SalmaHayek",
+        "memberId": "3e59d295dd6e744e908b4a3b1497fb60",
+        "amount": -154.95,
+        "currency": "mxn",
+        "note": "Note",
+        "transactionDate": "12/31/9999"
+      }
+    },
+    {
+      "data": {
+        "nickname": "SilentBob",
+        "memberId": "caf7f680489a8b45ff851632cc5353f1",
+        "amount": -2500,
+        "currency": "usd",
+        "note": "Note",
+        "transactionDate": "12/31/9999"
+      }
+    }
+  ]
+}

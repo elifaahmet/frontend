@@ -1,0 +1,483 @@
+@import "variables";
+
+@font-face {
+  font-family: 'tend-icons';
+  src:  url('./fonts/tend-icons.eot?thkjst');
+  src:
+    url('./fonts/tend-icons.ttf?thkjst') format('truetype'),
+    url('./fonts/tend-icons.woff?thkjst') format('woff'),
+    url('./fonts/tend-icons.svg?thkjst#') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+ // speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Edit {
+  &:before {
+    content: $icon-Edit;
+    color: #f6f6f1;
+  }
+}
+.icon-Arrow-Left {
+  &:before {
+    content: $icon-Arrow-Left;
+    color: #f6f6f1;
+  }
+}
+.icon-Arrow-Right {
+  margin-bottom: -2vh !important;
+  font-weight: normal !important;
+  --padding-end: 1.3em;
+  padding-right: 1.3em;
+  transform: scale(-1, 1);
+  &:before {
+    content: $icon-Arrow-Left;
+    color: #f6f6f1;
+  }
+}
+.icon-Deep-Discounts {
+  &:before {
+    content: $icon-Deep-Discounts;
+    color: #f6f6f1;
+  }
+}
+.icon-Deep-Discounts-Rewards {
+  &:before {
+    content: $icon-Deep-Discounts;
+    color: #ff5554;
+  }
+}
+.icon-Dropdown {
+  &:before {
+    content: $icon-Dropdown;
+    color: #f6f6f1;
+  }
+}
+.icon-Line-of-Credit {
+  &:before {
+    content: $icon-Line-of-Credit;
+    color: #f6f6f1;
+  }
+}
+.icon-Activate-ON {
+  &:before {
+    content: $icon-Activate-ON;
+    color: #f6f6f1;
+  }
+}
+.icon-Activities {
+  &:before {
+    content: $icon-Activities;
+    color: #f6f6f1;
+  }
+}
+.icon-Alert {
+  &:before {
+    content: $icon-Alert;
+    color: #f6f6f1;
+  }
+}
+.icon-Arrow {
+  &:before {
+    content: $icon-Arrow;
+    color: #f6f6f1;
+  }
+}
+.icon-ATM-Finder {
+  &:before {
+    content: $icon-ATM-Finder;
+    color: #f6f6f1;
+  }
+}
+.icon-Bank {
+  &:before {
+    content: $icon-Bank;
+    color: #f6f6f1;
+  }
+}
+.icon-Briefcase {
+  &:before {
+    content: $icon-Briefcase;
+    color: #f6f6f1;
+  }
+}
+.icon-Briefcase-Retail {
+  &:before {
+    content: $icon-Briefcase;
+    color: #ffc73d;
+  }
+}
+.icon-Calendar {
+  &:before {
+    content: $icon-Calendar;
+    color: #f6f6f1;
+  }
+}
+.icon-Camera {
+  &:before {
+    content: $icon-Camera;
+    color: #f6f6f1;
+  }
+}
+.icon-Card {
+  &:before {
+    content: $icon-Card;
+    color: #f6f6f1;
+  }
+}
+.icon-Cars {
+  &:before {
+    content: $icon-Cars;
+    color: #f6f6f1;
+  }
+}
+.icon-Chat-Empty {
+  &:before {
+    content: $icon-Chat-Empty;
+    color: #f6f6f1;
+  }
+}
+.icon-Chat-Full {
+  &:before {
+    content: $icon-Chat-Full;
+    color: #f6f6f1;
+  }
+}
+.icon-Check {
+  &:before {
+    content: $icon-Check;
+    color: #f6f6f1;
+  }
+}
+.icon-Close {
+  position: absolute;
+  right: 8px;
+  &:before {
+    content: $icon-Close;
+    color: #f6f6f1;
+  }
+}
+.icon-Cookie {
+  &:before {
+    content: $icon-Cookie;
+    color: #f6f6f1;
+  }
+}
+.icon-Cruises {
+  &:before {
+    content: $icon-Cruises;
+    color: #f6f6f1;
+  }
+}
+.icon-Crumb {
+  &:before {
+    content: $icon-Crumb;
+    color: #f6f6f1;
+  }
+}
+.icon-Crumb-Reward-Shares {
+  &:before {
+    content: $icon-Crumb;
+    color: #BDFC4C;
+  }
+}
+.icon-Crumb-Reward-Travel {
+  &:before {
+    content: $icon-Crumb;
+    color: #FA5CAE;
+  }
+}
+.icon-Crumb-Reward-Retail {
+  &:before {
+    content: $icon-Crumb;
+    color: #FFC73D;
+  }
+}
+.icon-Crumb-Reward-Deep-Discount {
+  &:before {
+    content: $icon-Crumb;
+    color: #FF5554;
+  }
+}
+.icon-Direct-Deposit {
+  &:before {
+    content: $icon-Direct-Deposit;
+    color: #f6f6f1;
+  }
+}
+.icon-Direct-Deposit-NBKC-Start {
+  &:before {
+    content: $icon-Direct-Deposit;
+    color: #BDFC4C;
+  }
+}
+.icon-Dollar-Sign {
+  &:before {
+    content: $icon-Dollar-Sign;
+    color: #BDFC4C;
+  }
+}
+.icon-Face-ID {
+  &:before {
+    content: $icon-Face-ID;
+    color: #f6f6f1;
+  }
+}
+.icon-Flights {
+  &:before {
+    content: $icon-Flights;
+    color: #f6f6f1;
+  }
+}
+.icon-Freeze-Card {
+  &:before {
+    content: $icon-Freeze-Card;
+    color: #f6f6f1;
+  }
+}
+.icon-Hamburger {
+  &:before {
+    content: $icon-Hamburger;
+    color: #f6f6f1;
+  }
+}
+.icon-Help {
+  &:before {
+    content: $icon-Help;
+    color: #f6f6f1;
+  }
+}
+.icon-Home {
+  &:before {
+    content: $icon-Home;
+    color: #f6f6f1;
+  }
+}
+.icon-Hotels {
+  &:before {
+    content: $icon-Hotels;
+    color: #f6f6f1;
+  }
+}
+.icon-International {
+  &:before {
+    content: $icon-International;
+    color: #f6f6f1;
+  }
+}
+.icon-Invite {
+  &:before {
+    content: $icon-Invite;
+    color: #f6f6f1;
+  }
+}
+
+.icon-Tend-Share{
+  &:before {
+    content: $icon-Invite;
+    color: #BDFC4C;
+  }
+}
+.icon-Key {
+  &:before {
+    content: $icon-Key;
+    color: #f6f6f1;
+  }
+}
+.icon-Lock {
+  &:before {
+    content: $icon-Lock;
+    color: #fa5cae;
+  }
+}
+.icon-Logout {
+  &:before {
+    content: $icon-Logout;
+    color: #f6f6f1;
+  }
+}
+.icon-Message-Centre {
+  &:before {
+    content: $icon-Message-Centre;
+    color: #f6f6f1;
+  }
+}
+.icon-Mobile {
+  &:before {
+    content: $icon-Mobile;
+    color: #f6f6f1;
+  }
+}
+.icon-Money {
+  &:before {
+    content: $icon-Money;
+    color: #f6f6f1;
+  }
+}
+.icon-Monies {
+  &:before {
+    content: $icon-Monies;
+    color: #f6f6f1;
+  }
+}
+.icon-Odometer {
+  &:before {
+    content: $icon-Odometer;
+    color: #f6f6f1;
+  }
+}
+.icon-Outgoing-Link {
+  &:before {
+    content: $icon-Outgoing-Link;
+    color: #f6f6f1;
+  }
+}
+.icon-Pay-Bills {
+  &:before {
+    content: $icon-Pay-Bills;
+    color: #f6f6f1;
+  }
+}
+.icon-Person {
+  &:before {
+    content: $icon-Person;
+    color: #f6f6f1;
+  }
+}
+
+.icon-Person-Invite {
+  &:before {
+    content: $icon-Person;
+    color: #000000;
+  }
+}
+.icon-Plus {
+  &:before {
+    content: $icon-Plus;
+    color: #f6f6f1;
+  }
+}
+.icon-Receive-Money {
+  &:before {
+    content: $icon-Receive-Money;
+    color: #f6f6f1;
+  }
+}
+.icon-Replace-Card {
+  &:before {
+    content: $icon-Replace-Card;
+    color: #f6f6f1;
+  }
+}
+.icon-Savings-Goal {
+  &:before {
+    content: $icon-Savings-Goal;
+    color: #f6f6f1;
+  }
+}
+.icon-Savings {
+  &:before {
+    content: $icon-Savings;
+    color: #f6f6f1;
+  }
+}
+.icon-Scan {
+  &:before {
+    content: $icon-Scan;
+    color: #f6f6f1;
+  }
+}
+.icon-Scheduled-Transfers {
+  &:before {
+    content: $icon-Scheduled-Transfers;
+    color: #f6f6f1;
+  }
+}
+.icon-Search {
+  &:before {
+    content: $icon-Search;
+    color: #f6f6f1;
+  }
+}
+.icon-Send-Money {
+  &:before {
+    content: $icon-Send-Money;
+    color: #f6f6f1;
+  }
+}
+.icon-Settings {
+  &:before {
+    content: $icon-Settings;
+    color: #f6f6f1;
+  }
+}
+.icon-Statements {
+  &:before {
+    content: $icon-Statements;
+    color: #f6f6f1;
+  }
+}
+.icon-Suitcase {
+  &:before {
+    content: $icon-Suitcase;
+    color: #f6f6f1;
+  }
+}
+.icon-Suitcase-Rewards {
+  &:before {
+    content: $icon-Suitcase;
+    color: #fa5cae;
+  }
+}
+.icon-Tours {
+  &:before {
+    content: $icon-Tours;
+    color: #f6f6f1;
+  }
+}
+.icon-Transfer-From {
+  &:before {
+    content: $icon-Transfer-From;
+    color: #f6f6f1;
+  }
+}
+.icon-Transfer-From-NBKC-Start {
+  &:before {
+    content: $icon-Transfer-From;
+    color: #F79234;
+  }
+}
+.icon-Transfer-To {
+  &:before {
+    content: $icon-Transfer-To;
+    color: #f6f6f1;
+  }
+}
+.icon-Transfer {
+  &:before {
+    content: $icon-Transfer;
+    color: #f6f6f1;
+  }
+}
+.icon-Trash {
+  &:before {
+    content: $icon-Trash;
+    color: #f6f6f1;
+  }
+}
+

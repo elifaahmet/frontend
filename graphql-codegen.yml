@@ -1,0 +1,32 @@
+overwrite: true
+schema:
+  - https://api.tend.ninja/service-auth/graphql
+  - https://api.tend.ninja/service-card/graphql
+  - https://api.tend.ninja/service-cashback/graphql
+  - https://api.tend.ninja/service-deep-discounts/graphql
+  - https://api.tend.ninja/service-experian/graphql
+  - https://api.tend.ninja/service-p2p/graphql
+  - https://api.tend.ninja/service-preferences/graphql
+  - https://api.tend.ninja/service-personal-details/graphql
+  - https://api.tend.ninja/service-platform/graphql
+  - https://api.tend.ninja/service-q2-event/graphql
+  - https://api.tend.ninja/service-tend-onboarding/graphql
+  - https://api.tend.ninja/service-transfer/graphql
+generates:
+  ./libs/shared/graphql/index.ts:
+    documents: "libs/shared/graphql/**/*.graphql"
+    config:
+      apolloAngularVersion: 1
+      skipTypename: true
+      withHooks: true
+      useImplementingTypes: true
+      declarationKind:
+        type: 'interface'
+        input: 'interface'
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular
+  ./libs/shared/graphql/graphql.schema.json:
+    plugins:
+      - introspection

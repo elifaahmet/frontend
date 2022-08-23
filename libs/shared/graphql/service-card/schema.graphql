@@ -1,0 +1,136 @@
+query card($memberId: String!) {
+    card(memberId: $memberId) {
+        cardId
+        customerId
+        accountId
+        cardNumberMasked
+        cardStatus
+        isActive
+    }
+}
+
+mutation orderCard($memberId: String!, $pin: String!) {
+  orderCard(memberId: $memberId, pin: $pin) {
+    ok
+    message
+    card {
+      cardId
+      customerId
+      accountId
+      cardNumberMasked
+      cardStatus
+    }
+  }
+}
+
+mutation resetPin($memberId: String!, $newPin: String!) {
+  resetPin(memberId: $memberId, newPin: $newPin) {
+    ok
+    message
+    card {
+      cardId
+      customerId
+      accountId
+      cardNumberMasked
+      cardStatus
+    }
+  }
+}
+
+mutation verifyCard($memberId: String!, $last4CardDigits: String!, $dob: Date!) {
+  verifyCard(memberId: $memberId, last4CardDigits: $last4CardDigits, dob: $dob) {
+    ok
+    message
+    card {
+      cardId
+      customerId
+      accountId
+      cardNumberMasked
+      cardStatus
+    }
+  }
+}
+
+mutation lockCard($memberId: String!) {
+  lockCard(memberId: $memberId) {
+    ok
+    message
+    card {
+      cardId
+      customerId
+      accountId
+      cardNumberMasked
+      cardStatus
+      isActive
+    }
+  }
+}
+
+mutation unlockCard($memberId: String!) {
+  unlockCard(memberId: $memberId) {
+    ok
+    message
+    card {
+      cardId
+      customerId
+      accountId
+      cardNumberMasked
+      cardStatus
+      isActive
+    }
+  }
+}
+
+mutation replaceCard($memberId: String!, $cardReplaceReason: CardReplaceReason!, $newPin: String) {
+  replaceCard(memberId: $memberId, cardReplaceReason: $cardReplaceReason, newPin: $newPin) {
+    ok
+    message
+    card {
+      cardId
+      customerId
+      accountId
+      cardNumberMasked
+      cardStatus
+      isActive
+    }
+  }
+}
+
+query findAtmByCoordinates(
+  $lat: Float,
+  $lng: Float,
+  $radius: Int,
+  $count: Int,
+  $unitOfMeasure: UnitOfMeasure,
+  $bankId: BankIdentifier!,
+  $locationType: LocationType
+)
+{
+  findAtmByCoordinates(
+    lat: $lat,
+    lng: $lng,
+    radius: $radius,
+    count: $count,
+    unitOfMeasure: $unitOfMeasure,
+    bankId: $bankId,
+    locationType: $locationType) {
+    name
+    description
+    coordinates {
+      lat
+      lng
+    }
+    addressComponents {
+      longName
+      shortName
+      types
+    }
+    address {
+      city
+      state
+      street
+      postalCode
+    }
+    distance
+  }
+}

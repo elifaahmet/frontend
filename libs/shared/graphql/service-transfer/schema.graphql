@@ -1,0 +1,196 @@
+query plaidLinkToken($memberId: String!) {
+  plaidLinkToken(memberId: $memberId) {
+    linkToken
+    expiration
+  }
+}
+
+query externalAccount($memberId: String!) {
+  externalAccount(memberId: $memberId) {
+    accountId
+    accountNumber
+    routingNumber
+    accountName
+    currency
+  }
+}
+
+mutation linkExternalAccount($memberId: String!, $plaidToken: String!, $plaidAccountId: String!) {
+  linkExternalAccount(memberId: $memberId, plaidToken: $plaidToken, plaidAccountId: $plaidAccountId) {
+    ok
+    message
+    externalAccount{
+      accountId
+      accountNumber
+      routingNumber
+      accountName
+      currency
+      availableBalance
+    }
+  }
+}
+
+mutation replaceExternalAccount($memberId: String!, $plaidToken: String!, $plaidAccountId: String!) {
+  replaceExternalAccount(memberId: $memberId, plaidToken: $plaidToken, plaidAccountId: $plaidAccountId) {
+    ok
+    message
+    externalAccount{
+      accountId
+      accountNumber
+      routingNumber
+      accountName
+      currency
+      availableBalance
+    }
+  }
+}
+
+mutation transferFunds($memberId: String!, $savingsAmount: Float! $checkingAmount: Float!) {
+  transferFunds(memberId: $memberId, savingsAmount: $savingsAmount , checkingAmount: $checkingAmount) {
+    ok
+    message
+    transfers {
+      transactionId
+      fromAccountId
+      toAccountId
+      fromAccountLocation
+      toAccountLocation
+      amount
+      currency
+      scheduledTransferDate
+      transferCompletionDatetime
+      transferFrequency
+      transferTiming
+    }
+  }
+}
+
+mutation externalToInternalTransfer($memberId: String!, $toAccountId: Int!, $amount: Float!, $note: String) {
+  externalToInternalTransfer(memberId: $memberId, toAccountId: $toAccountId, amount: $amount, note: $note) {
+    ok
+    message
+    transfer {
+      transactionId
+      fromAccountId
+      toAccountId
+      fromAccountLocation
+      toAccountLocation
+      amount
+      currency
+      scheduledTransferDate
+      transferCompletionDatetime
+      transferFrequency
+      transferTiming
+    }
+  }
+}
+
+mutation internalToExternalTransfer($memberId: String!, $fromAccountId: Int!, $amount: Float!, $note: String) {
+  internalToExternalTransfer(memberId: $memberId, fromAccountId: $fromAccountId, amount: $amount, note: $note) {
+    ok
+    message
+    transfer {
+      transactionId
+      fromAccountId
+      toAccountId
+      fromAccountLocation
+      toAccountLocation
+      amount
+      currency
+      scheduledTransferDate
+      transferCompletionDatetime
+      transferFrequency
+      transferTiming
+    }
+  }
+}
+
+mutation createPinwheelLink($routingNumber: String!, $accountNumber: String!, $accountType: String!, $pinwheelVersion: PinwheelVersionType){
+  createPinwheelLink(orgName: "Tend", job: "direct_deposit_switch", routingNumber: $routingNumber, accountNumber: $accountNumber, accountType: $accountType, pinwheelVersion:$pinwheelVersion) {
+    ok
+    message
+    link {
+      mode
+      token
+      expires
+      tokenId
+    }
+    error {
+      type
+      code
+      message
+      statusCode
+    }
+  }
+}
+
+mutation internalTransfer($memberId: String!, $fromAccountId: Int!, $toAccountId: Int!, $amount: Float!, $note: String) {
+  internalTransfer(memberId: $memberId, fromAccountId: $fromAccountId, toAccountId: $toAccountId, amount: $amount, note: $note) {
+    ok
+    message
+    transfer {
+      transactionId
+      fromAccountId
+      toAccountId
+      fromAccountLocation
+      toAccountLocation
+      amount
+      currency
+      scheduledTransferDate
+      transferCompletionDatetime
+      transferFrequency
+      transferTiming
+    }
+  }
+}
+
+query transactions($memberId: String!, $accountId: Int!, $amountMin: Float, $amountMax: Float, $startDate: Date, $endDate: Date, $isCredit: Boolean, $keywords: [String], $pageNumber: Int, $pageSize: Int) {
+  transactions(memberId: $memberId, accountId: $accountId, startDate: $startDate, endDate: $endDate, amountMin: $amountMin, amountMax: $amountMax, keywords: $keywords, isCredit: $isCredit, pageSize: $pageSize, pageNumber: $pageNumber) {
+    pending {
+      transactionId
+      customerId
+      amount
+      isCredit
+      createdDate
+      availableDate
+      settledDate
+      description {
+        category
+        note
+      }
+      status
+      friendlyDescription
+    }
+    recent {
+      transactionId
+      customerId
+      amount
+      isCredit
+      createdDate
+      availableDate
+      settledDate
+      description {
+        category
+        note
+      }
+      status
+      friendlyDescription
+    }
+    scheduled {
+      transactionId
+      customerId
+      amount
+      isCredit
+      createdDate
+      availableDate
+      settledDate
+      description {
+        category
+        note
+      }
+      status
+      friendlyDescription
+    }
+  }
+}
+

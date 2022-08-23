@@ -1,0 +1,51 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@tend/frontend/shared/environments": [
+        "libs/frontend/shared/environments/src/index.ts"
+      ],
+      "@tend/frontend/shared/react-utils": [
+        "libs/frontend/shared/react-utils/src/index.ts"
+      ],
+      "@tend/frontend/shared/utils": [
+        "libs/frontend/shared/utils/src/index.ts"
+      ],
+      "@tend/graphql": ["libs/shared/graphql/index.ts"],
+      "@tend/lego/marketing-ui-kit": [
+        "libs/lego/marketing-ui-kit/src/index.ts"
+      ],
+      "@tend/lego/product-ui-kit": ["libs/lego/product-ui-kit/src/index.ts"],
+      "@tend/shared/design/tokens": ["libs/shared/design/tokens/src/index.ts"],
+      "@tend/shared/design/ui-kit": ["libs/shared/design/ui-kit/src/index.ts"],
+      "@tend/shared/resources/docs": [
+        "libs/shared/resources/docs/src/index.ts"
+      ],
+      "@tend/shared/testing/lego/visual-regression": [
+        "libs/shared/testing/lego/visual-regression/src/index.ts"
+      ],
+      "@tend/storybook": ["libs/storybook/src/index.ts"],
+      "@tend/ui": ["libs/ui/src/index.ts"],
+      "@tendmoney/core-web-utils-next-i18next": [
+        "libs/core-web/utils/next-i18next/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

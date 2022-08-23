@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "data": {
+        "memberId": "6babeaa222ea3587f1977df47f5fae73" ,
+        "nickname": "FloydMayweather" ,
+        "tendId": "fmayweather" ,
+        "country": "us"
+      } ,
+      "sendAgain": true
+    } ,
+    {
+      "data": {
+        "memberId": "416595a0395598744f4fb6eb62b546df" ,
+        "nickname": "MikeTyson" ,
+        "tendId": "mtyson" ,
+        "country": "us"
+      } ,
+      "sendAgain": true
+    } ,
+    {
+      "data": {
+        "memberId": "299ec6d0a2230a11d903ae6e3a45196c" ,
+        "nickname": "OcsarDeLaHoya" ,
+        "tendId": "oscar" ,
+        "country": "mx"
+      } ,
+      "sendAgain": true
+    }
+  ]
+}

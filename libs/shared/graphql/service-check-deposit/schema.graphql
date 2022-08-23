@@ -1,0 +1,174 @@
+# query startSession($deviceIp: String!, $deviceUuid: String!, $localDateTime: String!, $timeZone: String!, $accountNumber: String!, $accountName: String!, $username: String!, $email: String!, $accounts: [AccountType], $accountHolderAttributes: [AttributeType]) {
+#   startSession(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, accountNumber: $accountNumber, accountName: $accountName, username: $username, email: $email, accounts: $accounts, accountHolderAttributes: $accountHolderAttributes) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#     SessionToken
+#     SessionStateId
+#     SessionInfo {
+#       IsHelpEnabled
+#       IsIntroPageEnabled
+#       IsTermsAcceptanceRequired
+#       AcctPermissions
+#       AreAcctPermissionEnabled
+#       StartPage
+#       ReceiptEmail
+#       CustomizableMessages {
+#         MessageTextCd
+#         LocalizedText
+#       }
+#       AccountKeys {
+#         AccountNumberIndex
+#         Description
+#         Tag
+#       }
+#     }
+#   }
+# }
+
+# query getSessionInfo($deviceIp: String!, $deviceUuid: String!, $localDateTime: String!, $timeZone: String!, $sessionStateId: String!, $sessionToken: String!) {
+#   getSessionInfo(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, sessionStateId: $sessionStateId, sessionToken: $sessionToken) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#     SessionToken
+#     SessionInfo {
+#       IsHelpEnabled
+#       IsIntroPageEnabled
+#       IsTermsAcceptanceRequired
+#       AcctPermissions
+#       AreAcctPermissionEnabled
+#       StartPage
+#       ReceiptEmail
+#       CustomizableMessages {
+#         MessageTextCd
+#         LocalizedText
+#       }
+#       AccountKeys {
+#         AccountNumberIndex
+#         Description
+#         Tag
+#       }
+#     }
+#   }
+# }
+
+# query endSession($deviceIp: String!, $deviceUuid: String!, $localDateTime: String!, $timeZone: String!, $sessionToken: String!, $sessionStateId: String!) {
+#   endSession(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, sessionToken: $sessionToken, sessionStateId: $sessionStateId) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#   }
+# }
+
+# query createDepositBatch($deviceIp: String!, $deviceUuid: String!, $localDateTime: String!, $timeZone: String!, $sessionStateId: String!, $sessionToken: String!, $depositToAccountNumIndex: Int, $description: String) {
+#   createDepositBatch(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, sessionStateId: $sessionStateId, sessionToken: $sessionToken, depositToAccountNumIndex: $depositToAccountNumIndex, description: $description) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#     DepositBatchId
+#   }
+# }
+
+# query getCheckImage($deviceIp: String!, $deviceUuid: String!, $localDateTime: String!, $timeZone: String!, $sessionStateId: String!, $sessionToken: String!, $checkImageViewType: Int) {
+#   getCheckImage(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, sessionStateId: $sessionStateId, sessionToken: $sessionToken, checkImageViewType: $checkImageViewType) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#     CheckImages {
+#       CheckImage
+#       CheckImageViewType
+#     }
+#   }
+# }
+
+# query getDepositBatchSummary($deviceIp: String!, $deviceUuid: String!, $localDateTime: String!, $timeZone: String!, $sessionStateId: String!, $sessionToken: String!, $depositBatchId: String!) {
+#   getDepositBatchSummary(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, sessionStateId: $sessionStateId, sessionToken: $sessionToken, depositBatchId: $depositBatchId) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#     ItemCount
+#     OkItemCount
+#     NeedReviewItemCount
+#     Amount
+#     UserDescription
+#     DepositToAccountNumberIndex
+#     ItemNumbers
+#     UserAmount
+#     UserItemCount
+#   }
+# }
+
+# query postDepositBatch($deviceIp: String, $deviceUuid: String, $localDateTime: String!, $timeZone: String, $sessionStateId: String, $sessionToken: String, $depositBatchId: String, $itemNumbers: [Int]) {
+#   postDepositBatch(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, sessionStateId: $sessionStateId, sessionToken: $sessionToken, depositBatchId: $depositBatchId, itemNumbers: $itemNumbers) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#     TransactionSummary {
+#       TransactionId
+#       TransactionDate
+#       TransactionType
+#       TransactionTypeId
+#       ReceiptNumber
+#       SubmittedAmount
+#       AdjustmentAmount
+#       CurrentAmount
+#       NumberOfChecks
+#       Status
+#       AccountNumber
+#       AccountHolderNumber
+#       AcceptByDescription
+#       ChannelType
+#       ChannelTypeDescription
+#       StatusId
+#       StatusDescription
+#       StatusChangeDate
+#       Username
+#       PayerAccountNumber
+#       DepositItems {
+#         ItemNumber
+#         CheckNumber
+#         AdjustmentAmount
+#         SubmittedAmount
+#         CurrentAmount
+#         StatusDescription
+#         StatusId
+#       }
+#     }
+#   }
+# }
+
+# query addDepositItem($deviceIp: String!, $deviceUuid: String!, $localDateTime: String!, $timeZone: String!, $sessionStateId: String!, $sessionToken: String!, $depositBatchId: String, $amount: Float, $backBase64Image: String, $frontBase64Image: String) {
+#   addDepositItem(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, sessionStateId: $sessionStateId, sessionToken: $sessionToken, depositBatchId: $depositBatchId, amount: $amount, frontBase64Image: $frontBase64Image, backBase64Image: $backBase64Image) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#   }
+# }
+
+# query getDepositItem($deviceIp: String!, $deviceUuid: String!, $localDateTime: String!, $timeZone: String!, $sessionStateId: String!, $sessionToken: String!, $depositBatchId: String) {
+#   getDepositItem(deviceIp: $deviceIp, deviceUuid: $deviceUuid, localDateTime: $localDateTime, timeZone: $timeZone, sessionStateId: $sessionStateId, sessionToken: $sessionToken, depositBatchId: $depositBatchId) {
+#     ResponseCode
+#     ErrorResponseText
+#     LocalizedMessageText
+#     DepositItem {
+#       ItemNumber
+#       Micr
+#       CheckNumber
+#       OcrAmount
+#       UserAmount
+#       Amount
+#       Status
+#       FundsAvailabilityText
+#       RiskFactors {
+#         RiskFactorId
+#         RiskFactorDescription
+#         RiskFactorLocalizedDescription
+#         Severity
+#         IsFixable
+#         IsConfirmable
+#         DepositFields
+#       }
+#     }
+#   }
+# }

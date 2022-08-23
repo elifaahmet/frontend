@@ -1,0 +1,83 @@
+mutation registerWithAffinity($zipCode: String!) {
+    registerWithAffinity(zipCode: $zipCode) {
+        ok
+        message
+    }
+}
+
+mutation activateOffer($offerId:Int!){
+ 	activateOffer(offerId: $offerId){
+  	ok
+    message
+	}
+}
+
+query getOffers($zipCode: String, $shopType: String, $radius: Int, $search: String, $activated: Boolean, $page: Int, $perPage:Int){
+ 	getOffers(zipCode: $zipCode, shopType: $shopType, radius: $radius, search: $search, activated: $activated, page: $page, perPage: $perPage){
+  	id
+    activated
+    title
+    merchant
+    image
+    shopType
+    tenWord
+    twentyWord
+    outsideLink
+    expiration
+    merchantId
+    activationRequired
+    offerValue
+	}
+}
+
+query getFeaturedOffers{
+  getFeaturedOffers{
+    id
+    activated
+    title
+    merchant
+    image
+    shopType
+    tenWord
+    twentyWord
+    outsideLink
+    expiration
+    merchantId
+    activationRequired
+    offerValue
+  }
+}
+
+query getOfferDetails($offerId:Int!){
+ 	getOfferDetails(offerId: $offerId){
+        id
+        activated
+        title
+        merchant
+        image
+        shopType
+        tenWord
+        twentyWord
+        outsideLink
+        expiration
+        merchantId
+        activationRequired
+        offerValue
+        stores {
+            id
+            address
+            city
+            zip
+            lat
+            long
+            distance
+        }
+	}
+}
+
+query getCategories{
+ 	getCategories{
+  	id
+    name
+	}
+}

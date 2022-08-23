@@ -1,0 +1,144 @@
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+.pytest_cache
+*.py[cod]
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+/data
+/www
+/platforms
+/plugins
+/resources
+/apps/frontend/legacy/build.json
+/apps/frontend/legacy/package-lock.json
+/apps/frontend/legacy/yarn.lock
+/apps/frontend/legacy/plugins
+/apps/frontend/legacy/.gradle
+
+*.ipa
+*.apk
+
+# Distribution / packaging
+bin/
+build/
+artifacts/
+develop-eggs/
+dist/
+eggs/
+lib/
+# Skip lib directory in libraries
+!/libs/**/lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# dependencies
+/node_modules
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+*.log
+*.pot
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# misc
+/.angular/cache
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+package-lock.json
+venv
+.env
+.env.*
+libs/angular/root/environment/src/lib/semantic-versioning.ts
+tools/config.xml
+tools/fastlane/report.xml
+tools/Tend.app.dSYM.zip
+
+# System Files
+.DS_Store
+Thumbs.db
+
+
+# added from ionic 5 app
+*~
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt
+*.sublime-project
+*.sublime-workspace
+npm-debug.log*
+
+.idea/
+.ionic/
+.sourcemaps/
+.sass-cache/
+.tmp/
+.versions/
+coverage/
+www/
+node_modules/
+tmp/
+temp/
+platforms/
+plugins/
+plugins/android.json
+plugins/ios.json
+$RECYCLE.BIN/
+*.mobileprovision
+*.cer
+*.p12
+*.certSigningRequest
+
+.DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+
+
+# Custom Plugins we need to keep for mobile
+!apps/frontend/legacy/plugins/cordova-plugin-jumio-mobilesdk/
+
+# Used for all dependencies and build files to be included (unless ignored by package .gitignore)
+!packages/**/*
+
+# NextJS
+.next

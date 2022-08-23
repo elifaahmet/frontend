@@ -1,0 +1,585 @@
+{
+  "version": 1,
+  "projects": {
+    "core-web-footer": {
+      "root": "apps/core-web/footer",
+      "sourceRoot": "apps/core-web/footer/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:webpack",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/core-web/footer",
+            "index": "apps/core-web/footer/src/index.html",
+            "main": "apps/core-web/footer/src/main.tsx",
+            "polyfills": "apps/core-web/footer/src/polyfills.ts",
+            "tsConfig": "apps/core-web/footer/tsconfig.app.json",
+            "assets": [
+              "apps/core-web/footer/src/favicon.ico",
+              "apps/core-web/footer/src/assets"
+            ],
+            "styles": ["apps/core-web/footer/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/core-web/footer/src/environments/environment.ts",
+                  "with": "apps/core-web/footer/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "core-web-footer:build",
+            "dev": true,
+            "port": 6301
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "core-web-footer:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/core-web/footer/**/*.{ts,tsx,js,jsx}"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/core-web/footer"],
+          "options": {
+            "jestConfig": "apps/core-web/footer/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "core-web-mfe-host": {
+      "root": "apps/core-web/mfe-host",
+      "sourceRoot": "apps/core-web/mfe-host",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": "production",
+          "options": {
+            "root": "apps/core-web/mfe-host",
+            "outputPath": "dist/apps/core-web/mfe-host"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "core-web-mfe-host:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "core-web-mfe-host:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "builder": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "core-web-mfe-host:build:production"
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/core-web/mfe-host"],
+          "options": {
+            "jestConfig": "apps/core-web/mfe-host/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/core-web/mfe-host/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      },
+      "tags": []
+    },
+    "core-web-mfe-host-e2e": {
+      "root": "apps/core-web/mfe-host-e2e",
+      "sourceRoot": "apps/core-web/mfe-host-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/core-web/mfe-host-e2e/cypress.json",
+            "devServerTarget": "core-web-mfe-host:serve",
+            "tsConfig": "apps/core-web/mfe-host-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "core-web-mfe-host:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/core-web/mfe-host-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["core-web-mfe-host"]
+    },
+    "core-web-utils-next-i18next": {
+      "root": "libs/core-web/utils/next-i18next",
+      "sourceRoot": "libs/core-web/utils/next-i18next/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/core-web/utils/next-i18next/**/*.{ts,tsx,js,jsx}"
+            ]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/core-web/utils/next-i18next"],
+          "options": {
+            "jestConfig": "libs/core-web/utils/next-i18next/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "frontend-p2p": {
+      "root": "apps/frontend/p2p",
+      "sourceRoot": "apps/frontend/p2p/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:webpack",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/frontend/p2p",
+            "index": "apps/frontend/p2p/src/index.html",
+            "main": "apps/frontend/p2p/src/main.tsx",
+            "polyfills": "apps/frontend/p2p/src/polyfills.ts",
+            "tsConfig": "apps/frontend/p2p/tsconfig.app.json",
+            "assets": ["apps/frontend/p2p/src/assets"],
+            "styles": ["apps/frontend/p2p/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "custom-webpack/webpack.config.js"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "libs/frontend/shared/environments/src/lib/environment.ts",
+                  "with": "libs/frontend/shared/environments/src/lib/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "libs/frontend/shared/environments/src/lib/environment.ts",
+                  "with": "libs/frontend/shared/environments/src/lib/environment.qa.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "frontend-p2p:build",
+            "port": 6300
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "frontend-p2p:build:production"
+            },
+            "qa": {
+              "buildTarget": "frontend-p2p:build:qa"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/frontend/p2p/**/*.{ts,tsx,js,jsx}"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/frontend/p2p"],
+          "options": {
+            "jestConfig": "apps/frontend/p2p/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "frontend-shared-environments": {
+      "root": "libs/frontend/shared/environments",
+      "sourceRoot": "libs/frontend/shared/environments/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/shared/environments/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/shared/environments"],
+          "options": {
+            "jestConfig": "libs/frontend/shared/environments/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "frontend-shared-react-utils": {
+      "root": "libs/frontend/shared/react-utils",
+      "sourceRoot": "libs/frontend/shared/react-utils/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend/shared/react-utils/**/*.{ts,tsx,js,jsx}"
+            ]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/shared/react-utils"],
+          "options": {
+            "jestConfig": "libs/frontend/shared/react-utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "frontend-shared-utils": {
+      "projectType": "library",
+      "root": "libs/frontend/shared/utils",
+      "sourceRoot": "libs/frontend/shared/utils/src",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/frontend/shared/utils/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/shared/utils"],
+          "options": {
+            "jestConfig": "libs/frontend/shared/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "lego-product-ui-kit": {
+      "root": "libs/lego/product-ui-kit",
+      "sourceRoot": "libs/lego/product-ui-kit/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/lego/product-ui-kit/**/*.{ts,tsx,js,jsx}"
+            ]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/lego/product-ui-kit"],
+          "options": {
+            "jestConfig": "libs/lego/product-ui-kit/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 3001,
+            "config": {
+              "configFolder": "libs/lego/product-ui-kit/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/lego-product-ui-kit",
+            "config": {
+              "configFolder": "libs/lego/product-ui-kit/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      },
+      "tags": []
+    },
+    "shared-design-tokens": {
+      "root": "libs/shared/design/tokens",
+      "sourceRoot": "libs/shared/design/tokens/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/design/tokens/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/design/tokens"],
+          "options": {
+            "jestConfig": "libs/shared/design/tokens/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "shared-design-ui-kit": {
+      "root": "libs/shared/design/ui-kit",
+      "sourceRoot": "libs/shared/design/ui-kit/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/design/ui-kit/**/*.{ts,tsx,js,jsx}"
+            ]
+          },
+          "outputs": ["{options.outputFile}"]
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/design/ui-kit"],
+          "options": {
+            "jestConfig": "libs/shared/design/ui-kit/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 3003,
+            "config": {
+              "configFolder": "libs/shared/design/ui-kit/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/shared-design-ui-kit",
+            "config": {
+              "configFolder": "libs/shared/design/ui-kit/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      },
+      "tags": []
+    },
+    "storybook": {
+      "projectType": "library",
+      "root": "libs/storybook",
+      "sourceRoot": "libs/storybook/src",
+      "prefix": "tend",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "apps/frontend/legacy/www",
+            "index": "apps/frontend/legacy/src/index.html",
+            "main": "apps/frontend/legacy/src/main.ts",
+            "polyfills": "apps/frontend/legacy/src/polyfills.ts",
+            "tsConfig": "apps/frontend/legacy/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "libs/shared/fonts/",
+                "output": "./fonts"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/themes/tend-ionic-app-v1/assets",
+                "output": "./assets"
+              }
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/shared/themes/tend-ionic-app-v1"]
+            },
+            "styles": [
+              "libs/shared/themes/tend-ionic-app-v1/tend.scss",
+              "libs/shared/fonts/pilat.scss"
+            ],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/frontend/legacy/src/environments/environment.ts",
+                  "with": "apps/frontend/legacy/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/storybook/jest.config.js",
+            "tsConfig": "libs/storybook/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/storybook/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "tags": []
+    }
+  }
+}

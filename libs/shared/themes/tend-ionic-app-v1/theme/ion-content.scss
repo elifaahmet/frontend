@@ -1,0 +1,35 @@
+ion-content {
+  width: 100%;
+  --margin-end-auto: auto;
+
+  .has-footer-button {
+    // TODO: add padding for footer
+  }
+
+  h1 {
+    font-family: 'Pilat Condensed', serif;
+    font-size: 3.3125rem;
+    line-height: 3rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-family: 'Pilat Bold', serif;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+  }
+
+  h3 {
+    font-family: 'Pilat Bold', serif;
+    font-size: 1.8rem;
+    line-height: 2.1rem;
+    letter-spacing: normal;
+  }
+
+  h4 {
+    font-family: 'Pilat Bold', serif;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    letter-spacing: normal;
+  }
+}

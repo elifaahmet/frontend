@@ -1,0 +1,24 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "files": [],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "emotion.d.ts",
+    "fonts.d.ts",
+    "../../../libs/ui/**/*.d.ts",
+    "../../../libs/lego/**/*.d.ts"
+  ],
+  "exclude": ["node_modules"],
+}

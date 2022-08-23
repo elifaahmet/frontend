@@ -1,0 +1,64 @@
+// App Styles
+// ----------------------------------------------------------------------------
+// Put style rules here that you want to apply to the entire application. These
+// styles are for the entire app and not just one component. Additionally, this
+// file can hold Sass mixins, functions, and placeholder classes to be imported
+// and used throughout the application.
+@import './ionic';
+@import './theme';
+html {
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  // 16 is a constant - don't fight it just get better at division: ([x]px/16) = [y]rem;
+  font-size: 2vh;
+}
+
+.fontsize-12 {
+  font-size: 1.5vh;
+}
+
+.fontsize-24 {
+  font-size: 3vh;
+}
+
+.fontsize-home {
+  font-size: 1.875rem !important;
+  margin-top: 1.25rem;
+  --opacity: 0 !important;
+}
+
+.fontsize-30 {
+  font-size: 3.75vh;
+  --opacity: 0 !important;
+}
+
+.fontsize-36 {
+  font-size: 4.5vh;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+span,
+div {
+  white-space: pre-line;
+}
+
+ion-item {
+  --background-focused: #002923;
+}
+
+
+.content-footer {
+  position: fixed;
+  left: 0;
+  bottom: 10px;
+  right: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}

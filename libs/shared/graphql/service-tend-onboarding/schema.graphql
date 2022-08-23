@@ -1,0 +1,342 @@
+query getMemberApplicationProgress($email: String!){
+  getMemberApplicationProgress(email: $email){
+    id
+    bankId
+    countryId
+    customerId
+    applicationProgress
+    bank {
+      identifier
+    }
+  }
+}
+
+mutation updateMemberApplicationProgress($memberId: String!, $applicationProgress: String!){
+  updateMemberApplicationProgress(memberId: $memberId, applicationProgress: $applicationProgress) {
+    member {
+      id
+      bankId
+      countryId
+      customerId
+      applicationProgress
+      bank {
+        identifier
+      }
+    }
+  }
+}
+
+query supportedCountries {
+  supportedCountries {
+    id
+    abbreviation
+    name
+    identifier
+    supported
+    unitOfMeasure
+    createdDate
+    updatedDate
+  }
+}
+
+mutation onboardMember($email: String!, $phone: String!, $countryId: String!){
+  onboardMember(email: $email, phone: $phone, countryId: $countryId) {
+    member {
+      id
+      bankId
+      countryId
+      customerId
+      applicationProgress
+      bank {
+        identifier
+      }
+    }
+  }
+}
+
+mutation sendVerificationCode($memberId: String!){
+  sendVerificationCode(memberId: $memberId) {
+    code {
+      id
+			verificationCode
+    }
+  }
+}
+
+mutation confirmVerificationCode($code: String!, $memberId: String!) {
+  confirmVerificationCode(code: $code, memberId: $memberId) {
+    code {
+      id
+			verificationCode
+      validated
+    }
+  }
+}
+
+mutation updateMemberReferrer($friendTendId: String, $companyCode: String, $friendEmail: String, $memberId: String!){
+  updateMemberReferrer(
+    friendTendId: $friendTendId,
+		memberId: $memberId,
+    companyCode: $companyCode,
+    friendEmail: $friendEmail
+  ){
+    member {
+      bankId
+      countryId
+      customerId
+      applicationProgress
+      bank {
+        identifier
+      }
+    }
+  }
+}
+
+mutation addMemberEmail($email: String!){
+  addMemberEmail(email: $email) {
+    ok
+    message
+    member {
+      id
+      bankId
+      countryId
+      inviterId
+      accountStatus
+      applicationProgress
+      applicationStatus
+      companyCode
+      customerId
+      email
+      phone
+      language
+      friendEmail
+      memberType
+      createdDate
+      updatedDate
+      bank {
+        identifier
+      }
+    }
+  }
+}
+
+query dueDiligenceQuestions {
+   dueDiligenceQuestions {
+      questionName
+      questionId
+      questionDescription
+      questionEnglishDescription
+      questionSpanishDescription
+      answerType
+      answerMaxLength
+      choices {
+        choiceId
+        choiceDescription
+        choiceEnglishDescription
+        choiceSpanishDescription
+      }
+    }
+}
+
+ mutation populateDueDiligenceCategories {
+   populateDueDiligenceCategories {
+     ok
+     message
+   }
+ }
+
+
+mutation saveDueDiligenceAnswers($answers: [DueDiligenceAnswerInputType]){
+   saveDueDiligenceAnswers(answers: $answers) {
+      ok
+      message
+   }
+}
+
+
+query getCustomer($memberId: ID, $customerId: ID){
+  getCustomer(memberId: $memberId, customerId: $customerId) {
+    memberId
+    username
+    email
+    customerId
+    currentOnboardingStatus
+    country
+    deviceType
+    osVersion
+    appDownload
+    countrySelected
+    emailMobileEntered
+    inviterChosen
+    inviterId
+    inviterCode
+    promotionType
+    loginCreated
+    personalInfoCompleted
+    tncSubmitted
+    applicationStatusTime {
+      applicationDenied
+      applicationOnHold
+      applicationApproved
+    }
+    fundingSource
+    paymentCompleted
+    cardIssued
+    otpVerified
+    idScanCompleted
+    selfieCompleted
+    startedJumio
+    completedJumio
+    setUpProfile
+    beneficiaryCompleted
+    accountLevelSelected
+    accountLevel
+    infoEntered
+    accountFunded
+    kycClosure
+  }
+}
+
+
+query getCustomers($currentOnboardingStatus: String, $bank: BankIdentifier, $page: Int, $limit: Int){
+  getCustomers(currentOnboardingStatus: $currentOnboardingStatus, bank: $bank, page: $page, limit: $limit) {
+    memberId
+    username
+    email
+    customerId
+    currentOnboardingStatus
+    country
+    deviceType
+    osVersion
+    appDownload
+    countrySelected
+    emailMobileEntered
+    inviterChosen
+    inviterId
+    inviterCode
+    promotionType
+    loginCreated
+    personalInfoCompleted
+    tncSubmitted
+    applicationStatusTime {
+      applicationDenied
+      applicationOnHold
+      applicationApproved
+    }
+    fundingSource
+    paymentCompleted
+    cardIssued
+    otpVerified
+    idScanCompleted
+    selfieCompleted
+    startedJumio
+    completedJumio
+    setUpProfile
+    beneficiaryCompleted
+    accountLevelSelected
+    accountLevel
+    infoEntered
+    accountFunded
+    kycClosure
+  }
+}
+
+
+mutation nbkcOnboard(
+  $email: String,
+  $address: AddressInputType,
+  $dueDiligence: [DueDiligenceAnswersInputType],
+  $eSign: ESignAcceptanceInputType,
+  $identity: IdentityInputType,
+  $mla: MLAInputType,
+  $name: NameInputType,
+  $tnc: TNCAcceptanceInputType,
+  $trigger: TriggerInputType,
+  $primaryDocument: PrimaryDocumentType,
+  $secondaryDocument: SecondaryDocumentType
+){
+  nbkcOnboard(
+    email: $email,
+    address: $address,
+    dueDiligence: $dueDiligence,
+    eSign: $eSign,
+    identity: $identity,
+    mla: $mla,
+    name: $name,
+    tnc: $tnc,
+    trigger: $trigger,
+    primaryDocument: $primaryDocument,
+    secondaryDocument: $secondaryDocument
+  ) {
+    ok
+    message
+    member {
+      id
+      bankId
+      countryId
+      customerId
+      applicationProgress
+      bank {
+        identifier
+      }
+    }
+  }
+}
+
+
+mutation invexOnboard(
+  $accountLevel: AccountLevelInputType,
+  $address: AddressInfoInputType,
+  $beneficiary: BeneficiaryInputType,
+  $fundProvider: FundProviderInputType,
+  $general: GeneralInfoInputType,
+  $govDisclosure: GovDisclosureInfoInputType,
+  $identityConfirmation: IdentityInformationInputType,
+  $personal: PersonalInputType,
+  $tnc: TNCInvexAcceptanceInputType
+) {
+  invexOnboard(
+    accountLevel: $accountLevel,
+    address: $address,
+    beneficiary: $beneficiary,
+    fundProvider: $fundProvider,
+    general: $general,
+    govDisclosure: $govDisclosure,
+    identityConfirmation: $identityConfirmation,
+    personal: $personal,
+    tnc: $tnc
+  ) {
+    ok
+    message
+  }
+
+}
+
+
+mutation applyMembershipCode($membershipCode: String!) {
+  applyMembershipCode(membershipCode: $membershipCode) {
+    member {
+      bankId
+      countryId
+      customerId
+      applicationProgress
+      bank {
+        identifier
+      }
+    }
+  }
+}
+
+
+query getStateCityMunicipality($zipCode: String!){
+  getStateCityMunicipality(zipCode: $zipCode) {
+    stateName
+    state
+    municipalityName
+    municipality
+    cityName
+    city
+    suburbName
+    suburb
+  }
+}

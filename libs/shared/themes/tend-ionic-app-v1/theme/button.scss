@@ -1,0 +1,74 @@
+ion-button {
+  font-size: 1rem !important;
+  height: 2.5rem !important;
+  font-family: Arial !important;
+  --border-radius: 0 !important;
+  --color: var(--ion-color-rebrand-black) !important;
+  &[disabled] {
+    --color: var(--ion-color-rebrand-black) !important;
+  }
+}
+ion-segment {
+  --border-radius: 0 !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  margin-bottom: 0.5rem;
+}
+ion-segment-button {
+  font-size: 0.9rem;
+  height: 1.6rem;
+  --border-radius: 0 !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--ion-color-primary);
+  background: var(--ion-background-color);
+}
+ion-segment-button:not(:first-child) {
+  border-left-width: 0;
+}
+.segment-button-checked{
+  --background-checked: var(--ion-color-primary);
+  --color-checked: var(--ion-color-secondary-shade);
+  background: var(--ion-color-primary);
+  font-weight: bold;
+}
+
+ion-button.tend-button {
+  font-family: 'Pilat' !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2px !important;
+  line-height: 25px !important;
+  --color: var(--ion-color-rebrand-black) !important;
+  --border-width: 0px;
+  --border-color: var(--button-white-active-background-color) !important;
+  --border-style: solid;
+  height: 42px !important;
+  width: 100%;
+  --border-radius: 0px !important;
+  --background: var(--ion-color-rebrand-input-button-background);
+  text-transform: none;
+}
+ion-button.tend-button.button-disabled {
+  --opacity: 1;
+}
+
+ion-button.tend-secondary-button {
+  font-family: 'Pilat' !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2px !important;
+  line-height: 25px !important;
+  color: var(--ion-color-rebrand-white) !important;
+  --color: var(--ion-color-rebrand-white) !important;
+  --border-width: 0px;
+  --border-color: var(--ion-color-secondary) !important;
+  --border-style: solid;
+  height: 42px !important;
+  width: 100%;
+  --border-radius: 0px !important;
+  --background: var(--ion-color-secondary);
+  text-transform: none;
+}
+ion-button.tend-secondary-button.button-disabled {
+  --opacity: 1;
+}

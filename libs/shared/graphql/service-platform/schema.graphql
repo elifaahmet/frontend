@@ -1,0 +1,20 @@
+query getSchemas(
+  $applicationName: String,
+  $schemaType: String,
+  $applicationRoute: String
+) {
+  getSchemas(
+    applicationName: $applicationName,
+    schemaType: $schemaType,
+    applicationRoute: $applicationRoute
+  ) {
+    applicationName
+    schemaType
+    applicationRoute
+    schema
+    updatedBy
+    createdAt
+    updatedAt
+    version
+  }
+}

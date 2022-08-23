@@ -1,0 +1,27 @@
+query preferences($memberId: String){
+  preferences(memberId: $memberId){
+    channelId
+    channelName
+    channelCategory
+    contactPreferences {
+      preferenceId
+      name
+      enabled
+    }
+  }
+}
+
+
+mutation preferencesSubscriber(
+  $memberId: String
+  $preference: SubscriberInput!
+) {
+  preferencesSubscriber(
+    memberId: $memberId
+    preference: $preference
+  ) {
+      ok
+      message
+  }
+}
+

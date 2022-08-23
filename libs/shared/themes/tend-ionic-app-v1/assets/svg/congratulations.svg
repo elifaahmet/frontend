@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  width="94"
+  height="80"
+  viewBox="0 0 94 80"
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+  <g id="Bank-Onboarding-w/US" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="2.7.1-Bank-Application-Approved" transform="translate(-144.000000, -265.000000)">
+      <rect fill="#002923" x="0" y="0" width="375" height="812"></rect>
+      <g id="Group" transform="translate(143.830222, 265.000000)">
+        <rect
+          id="Rectangle"
+          fill="#FA5CAE"
+          transform="translate(58.169778, 40.000000) rotate(130.000000) translate(-58.169778, -40.000000) "
+          x="14.1697778"
+          y="31"
+          width="88"
+          height="18"
+        ></rect>
+        <rect
+          id="Rectangle-Copy"
+          fill="#F79234"
+          transform="translate(15.000000, 50.213938) rotate(220.000000) translate(-15.000000, -50.213938) "
+          x="4"
+          y="41.213938"
+          width="22"
+          height="18"
+        ></rect>
+      </g>
+    </g>
+  </g>
+</svg>

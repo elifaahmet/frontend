@@ -1,0 +1,162 @@
+query p2pContacts($memberId: String!) {
+  p2pContacts(memberId: $memberId) {
+    id
+    belongTo
+    email
+    contactType
+    createdDate
+    updatedDate
+  }
+}
+
+mutation addP2pContact($memberId: String!, $contactEmail: String!) {
+  addP2pContact(memberId: $memberId, contactEmail: $contactEmail) {
+    ok
+    message
+    contact {
+        id
+        belongTo
+        email
+        contactType
+        createdDate
+        updatedDate
+    }
+    errors {
+        name
+        message
+        code
+    }
+  }
+}
+
+mutation deleteP2pContact($contactId: String!) {
+    deleteP2pContact(contactId: $contactId) {
+        ok
+        message
+        contact {
+            id
+            belongTo
+            email
+            contactType
+            createdDate
+            updatedDate
+        }
+        errors {
+            name
+            code
+            message
+        }
+    }
+}
+
+mutation sendP2pVerificationCode($senderMemberId: String!) {
+  sendP2pVerificationCode(senderMemberId: $senderMemberId ) {
+    ok
+    message
+    errors {
+        name
+        message
+        code
+    }
+  }
+}
+
+mutation p2pTransfer($senderMemberId: String!, $recipientContactId: String!, $verificationCode: String!, $amount: Float!, $note: String) {
+  p2pTransfer(senderMemberId: $senderMemberId, recipientContactId: $recipientContactId, verificationCode: $verificationCode, amount: $amount, note: $note) {
+    ok
+    message
+    recipientName
+    errors {
+        name
+        message
+        code
+    }
+  }
+}
+
+mutation p2pRequest(
+  $amount: String
+  $note: String
+  $recipientEmails: [String]
+  $requesterMemberId: String
+) {
+  p2pRequest(
+    amount: $amount
+    note: $note
+    recipientEmails: $recipientEmails
+    requesterMemberId: $requesterMemberId
+  ) {
+      ok
+      message
+      date
+      errors {
+          name
+          message
+          code
+      }
+  }
+}
+
+query p2pRequestsFromMe($memberId: String, $requestStatus: P2pRequestStatus){
+  p2pRequestsFromMe(memberId: $memberId, requestStatus: $requestStatus){
+		amount
+		confirmationCode
+		createdAt
+		id
+		message
+		receiverEmail
+		requestStatus
+		senderEmail
+		updatedAt
+  }
+}
+
+query p2pRequestsToMe($memberId: String, $requestStatus: P2pRequestStatus){
+  p2pRequestsToMe(memberId: $memberId, requestStatus: $requestStatus){
+		amount
+		confirmationCode
+		createdAt
+		id
+		message
+		receiverEmail
+		requestStatus
+		senderEmail
+		updatedAt
+  }
+}
+
+
+mutation cancelP2pRequest($p2pRequestId: String){
+  cancelP2pRequest(p2pRequestId: $p2pRequestId) {
+    ok
+    errors {
+      name
+      message
+      code
+    }
+  }
+}
+
+
+mutation declineP2pRequest($p2pRequestId: String){
+  declineP2pRequest(p2pRequestId: $p2pRequestId) {
+    ok
+    errors {
+      name
+      message
+      code
+    }
+  }
+}
+
+
+mutation acceotP2pRequest($p2pRequestId: String){
+  acceptP2pRequest(p2pRequestId: $p2pRequestId) {
+    ok
+    errors {
+      name
+      message
+      code
+    }
+  }
+}

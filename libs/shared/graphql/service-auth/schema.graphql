@@ -1,0 +1,200 @@
+query me {
+  me {
+    id
+    email
+    isActive
+    lastLoggedIn
+    createdDate
+    updatedDate
+  }
+}
+
+mutation createLogin($memberId: String!, $email: String!, $password: String!){
+  createLogin(memberId: $memberId, email: $email, password: $password) {
+    ok
+    message
+    member {
+      id
+      bankId
+      countryId
+      inviterId
+      accountStatus
+      applicationProgress
+      applicationStatus
+      companyCode
+      customerId
+      email
+      phone
+      language
+      friendEmail
+      memberType
+      createdDate
+      updatedDate
+      bank {
+        identifier
+      }
+    }
+  }
+}
+
+mutation loginMember($email: String, $phone: String, $password: String!) {
+  loginMember(email: $email, phone: $phone, password: $password) {
+    ok
+    message
+    accessToken
+    refreshToken
+    member {
+      id
+      bankId
+      countryId
+      inviterId
+      accountStatus
+      applicationProgress
+      applicationStatus
+      companyCode
+      customerId
+      email
+      phone
+      language
+      friendEmail
+      memberType
+      createdDate
+      updatedDate
+      bank {
+        identifier
+      }
+    }
+  }
+}
+
+mutation registerDevice ($bundleId: String!, $platform: PlatformType!, $token: String!) {
+   registerDevice(bundleId: $bundleId, platform: $platform, token: $token) {
+       ok
+       message
+   }
+}
+
+mutation logoutMember {
+    logoutMember {
+        ok
+        message
+    }
+}
+
+mutation changePassword($oldPassword: String!, $newPassword: String!) {
+  changePassword(oldPassword: $oldPassword, newPassword: $newPassword) {
+    ok
+    message
+  }
+}
+
+
+mutation changeForgottenPassword($memberId: String!, $tempToken: String!, $newPassword: String!) {
+  changeForgottenPassword(memberId: $memberId, tempToken: $tempToken, newPassword: $newPassword) {
+    ok
+    message
+  }
+}
+
+
+mutation resetPassword($memberId: String!, $dateOfBirth: String, $ssnNumber: String, $cardNumber: String) {
+  resetPassword(memberId: $memberId, dateOfBirth: $dateOfBirth, ssnNumber: $ssnNumber, cardNumber: $cardNumber) {
+    ok
+    message
+    tempToken
+  }
+}
+
+mutation requestResetPassword($email: String, $phone: String) {
+  requestResetPassword(email: $email, phone: $phone) {
+    ok
+    bankIdentifier
+    memberId
+    member {
+      id
+      email
+      phone
+      accountStatus
+      applicationProgress
+      applicationStatus
+    }
+  }
+}
+
+mutation validateUser($phrase: String!) {
+  validateUser(phrase: $phrase) {
+    ok
+    message
+    onboardToken
+  }
+}
+
+query coreproAccountInfo($email: String) {
+   coreproAccountInfo(email: $email) {
+   accountStatus
+   card {
+     isCardOrdered
+     cardStatus
+   }
+   member {
+     id
+     bankId
+     countryId
+     applicationProgress
+     applicationStatus
+     accountStatus
+     customerId
+     email
+   }
+ }
+}
+
+query tendId {
+   tendId
+}
+
+mutation createUpdateTendId($tendId: String) {
+  createUpdateTendId(tendId: $tendId) {
+    ok
+    message
+    tendId
+  }
+}
+
+mutation resetTendId {
+  resetTendId {
+    ok
+    message
+  }
+}
+
+mutation checkTendIdUnique($memberId: String!, $tendId: String){
+   checkTendIdUnique(tendId: $tendId, memberId: $memberId) {
+       ok
+       isUnique
+       belongsToUser
+   }
+}
+
+query appVersion($currentVersion: String!, $platform: Platform!, $country: Country!, $deviceId: String){
+  appVersion(currentVersion:$currentVersion, platform: $platform, country: $country, deviceId: $deviceId) {
+    updateStatus
+    newVersion
+    updateUrl
+  }
+}
+
+mutation resetPasswordWithOtp($code: String, $memberId: String!) {
+  resetPasswordWithOtp(code:$code, memberId:$memberId) {
+    ok
+    message
+    tempToken
+  }
+}
+
+mutation updateMemberDevices ($deviceOs: String!, $deviceUuid: String!) {
+   updateMemberDevices(deviceOs: $deviceOs, deviceUuid: $deviceUuid) {
+       ok
+       message
+   }
+}

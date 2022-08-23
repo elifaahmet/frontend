@@ -1,0 +1,15 @@
+mutation registerExperianSubscriber($memberId: String, $ssn: String, $dob: Date, $disclosureDatetime: DateTime, $firstName: String, $lastName: String, $email: String, $address1: String, $address2: String, $city: String, $state: String, $zipCode: String){
+  registerExperianSubscriber(memberId: $memberId, ssn: $ssn, dob: $dob, disclosureDatetime: $disclosureDatetime, firstName: $firstName, lastName: $lastName,email: $email, address1: $address1, address2: $address2, city: $city, state: $state, zipCode: $zipCode) {
+    ok
+    message
+    member {
+      id
+      applicationProgress
+    }
+  }
+}
+query creditScoreDataUrl($memberId: String!) {
+    creditScoreDataUrl(memberId: $memberId) {
+        url
+    }
+}
